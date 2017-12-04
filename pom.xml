@@ -22,6 +22,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+
+
+		<db.username>root</db.username>
+		<db.password>dev*I(O)P</db.password>
+		<db.driver>com.mysql.jdbc.Driver</db.driver>
+		<db.url>jdbc:mysql://localhost/tvstorm</db.url>
+		<db.name>tvstorm</db.name>
+		<skip.jooq-generation>true</skip.jooq-generation>
+
 	</properties>
 
 	<dependencies>
@@ -70,8 +79,39 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<jdbc>
+								<driver>${db.driver}</driver>
+								<url>${db.url}</url>
+								<user>${db.username}</user>
+								<password>${db.password}</password>
+							</jdbc>
+							<generator>
+								<database>
+									<name>org.jooq.util.mysql.MySQLDatabase</name>
+									<includes>.*</includes>
+									<excludes></excludes>
+									<inputSchema>tvstorm</inputSchema>
+								</database>
+								<target>
+									<packageName>com.example.demo.db</packageName>
+									<directory>src/main/java</directory>
+								</target>
+							</generator>
+							<skip>${skip.jooq-generation}</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
