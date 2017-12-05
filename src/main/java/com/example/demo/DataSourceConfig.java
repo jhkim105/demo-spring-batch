@@ -20,7 +20,6 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @ConfigurationProperties("spring.datasource")
     public DataSource dataSource() {
       return dataSourceProperties().initializeDataSourceBuilder().build();
     }
@@ -32,7 +31,6 @@ public class DataSourceConfig {
     }
 
     @Bean
-    @ConfigurationProperties("legacy.datasource")
     public DataSource legacyDataSource() {
       return legacyDataSourceProperties().initializeDataSourceBuilder().build();
     }
